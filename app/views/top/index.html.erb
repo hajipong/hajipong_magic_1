@@ -1,0 +1,14 @@
+<div style="padding: 50px;">
+  <h1>HajipongMagic</h1>
+  <hr />
+
+  <div id="ajax_form">
+    <%= form_with model: ResultText, url: convert_path, remote: true do |f| %>
+      <span>変換前の文字列を入力してください。</span><br />
+      <%= f.text_area :original, size: '100', style: 'height: 10em;' %><br />
+      <%= f.submit '変換' %>
+      <h4>↓↓↓</h4>
+      <div id="result_text"></div>
+    <% end %>
+  </div>
+</div>
