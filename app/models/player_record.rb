@@ -51,11 +51,12 @@ class PlayerRecord
         nil
       end
     end
-    end
+  end
 
-    def has_not_point?(text)
-      text.gsub(/[^\d]/, "").length == 0
-    end
+  # 対局石数が含まれているか？
+  def has_not_point?(text)
+    text.gsub(/[^\d]/, "").length == 0
+  end
 
   # 対局カラムか？
   def is_result_text?(text)
