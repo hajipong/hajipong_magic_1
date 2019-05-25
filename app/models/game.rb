@@ -1,3 +1,4 @@
+# 対局データモデル
 class Game
   include ActiveModel::Model
   attr_accessor :win_lose, :point, :player

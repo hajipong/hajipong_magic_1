@@ -1,0 +1,34 @@
+# 全員の選手記録を考慮して各項目を均等なスペースにする
+# レーティング用文字列整形クラス
+class PlayerRecordsFormatter
+  include ActiveModel::Model
+  attr_accessor :num_length, :name_length, :short_name_length, :result_lengths, :area_length, :rank_length
+
+  def initialize(player_records)
+    @player_records = player_records
+    hold_max_item_length
+  end
+
+  # 各項目の最大文字数を保持する
+  def hold_max_item_length
+    @player_records.each do |player_record|
+      @num_length = [@num_length ||= 0, text_length(player_record.num)].max
+      @name_length = [@name_length ||= 0, text_length(player_record.family_name) + text_length(player_record.first_name)].max
+      @short_name_length = [@short_name_length ||= 0, text_length(player_record.short_name)].max
+    end
+    @area_length = @name_length + PlayerRecordFormatter::SPACES[:family_name]
+    @rank_length = @short_name_length
+  end
+
+  # 選手記録をレーティング文字列変換
+  def to_str(player_record)
+    f = PlayerRecordFormatter.new(self, player_record)
+    f.num + f.name + f.shot_name + f.games + '<br />' +
+        f.under_num + f.area + f.rank + f.players
+  end
+
+  # 全角を半角2文字とカウントした文字列カウント
+  def text_length(text)
+    text.length + text.chars.reject(&:ascii_only?).length
+  end
+end
