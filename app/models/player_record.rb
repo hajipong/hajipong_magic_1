@@ -43,10 +43,19 @@ class PlayerRecord
 
   # 元データから対局データ生成
   def make_result(under_index)
-    @games = over_line.map do |game_text|
-      is_result_text?(game_text) ? Game.new(game_text, under_line[under_index = under_index.succ]) : nil
+    @games = over_line.map.with_index do |game_text, index|
+      if is_result_text?(game_text)
+        game_text = game_text + ' ' + over_line[index.succ] if has_not_point?(game_text)
+        Game.new(game_text, under_line[under_index = under_index.succ])
+      else
+        nil
+      end
     end
-  end
+    end
+
+    def has_not_point?(text)
+      text.gsub(/[^\d]/, "").length == 0
+    end
 
   # 対局カラムか？
   def is_result_text?(text)

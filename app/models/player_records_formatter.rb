@@ -2,7 +2,7 @@
 # レーティング用文字列整形クラス
 class PlayerRecordsFormatter
   include ActiveModel::Model
-  attr_accessor :num_length, :name_length, :short_name_length, :result_lengths, :area_length, :rank_length
+  attr_accessor :num_length, :name_length, :short_name_length, :game_length, :area_length, :rank_length
 
   def initialize(player_records)
     @player_records = player_records
@@ -15,9 +15,15 @@ class PlayerRecordsFormatter
       @num_length = [@num_length ||= 0, text_length(player_record.num)].max
       @name_length = [@name_length ||= 0, text_length(player_record.family_name) + text_length(player_record.first_name)].max
       @short_name_length = [@short_name_length ||= 0, text_length(player_record.short_name)].max
+      @game_length = [@game_lengths ||= 0, get_max_game_length(player_record.games)].max
     end
     @area_length = @name_length + PlayerRecordFormatter::SPACES[:family_name]
     @rank_length = @short_name_length
+  end
+
+  # 対局記録の最大文字数を取り出す
+  def get_max_game_length(games)
+    games.compact.map { |game| [text_length(game.win_lose + game.point), text_length(game.player)].max }.max
   end
 
   # 選手記録をレーティング文字列変換
