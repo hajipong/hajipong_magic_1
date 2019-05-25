@@ -43,14 +43,18 @@ class PlayerRecord
 
   # 元データから対局データ生成
   def make_result(under_index)
+    over_index = 4
     @games = over_line.map.with_index do |game_text, index|
       if is_result_text?(game_text)
-        game_text = game_text + ' ' + over_line[index.succ] if has_not_point?(game_text)
+        over_index = index
+        game_text = game_text + ' ' + over_line[over_index = over_index.succ] if has_not_point?(game_text)
         Game.new(game_text, under_line[under_index = under_index.succ])
       else
         nil
       end
     end
+    @after = over_line.map.with_index { |text, i| (i > over_index) ? text : nil}.compact.join(' ')
+    @score = under_line.map.with_index { |text, i| (i > under_index) ? text : nil}.compact.join(' ')
   end
 
   # 対局石数が含まれているか？

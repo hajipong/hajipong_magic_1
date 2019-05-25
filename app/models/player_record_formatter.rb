@@ -30,10 +30,9 @@ class PlayerRecordFormatter
 
   def games
     r.games.compact.map do |game|
-      game.win_lose +
-          space(margin(game.win_lose + game.point, p.game_length)) +
-          game.point
-    end.join(space(SPACES[:game]))
+      game.win_lose + game.point +
+          space(margin(game.win_lose + game.point, p.game_length))
+    end.join(space(SPACES[:game])) + space(SPACES[:game])
   end
 
   def under_num
@@ -51,7 +50,15 @@ class PlayerRecordFormatter
   def players
     r.games.compact.map do |game|
       game.player + space(margin(game.player, p.game_length))
-    end.join(space(SPACES[:game]))
+    end.join(space(SPACES[:game])) + space(SPACES[:game])
+  end
+
+  def after
+    r.after
+  end
+
+  def score
+    r.score
   end
 
   private

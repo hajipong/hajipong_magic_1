@@ -29,8 +29,8 @@ class PlayerRecordsFormatter
   # 選手記録をレーティング文字列変換
   def to_str(player_record)
     f = PlayerRecordFormatter.new(self, player_record)
-    f.num + f.name + f.shot_name + f.games + '<br />' +
-        f.under_num + f.area + f.rank + f.players
+    f.num + f.name + f.shot_name + f.games + f.after + '<br />' +
+        f.under_num + f.area + f.rank + f.players + f.score
   end
 
   # 全角を半角2文字とカウントした文字列カウント
