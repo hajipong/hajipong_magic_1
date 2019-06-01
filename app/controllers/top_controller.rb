@@ -1,11 +1,11 @@
 class TopController < ApplicationController
 
   def convert
-    @result_text = ResultText.new(result_text_params)
-    render plain: @result_text.format
+    origin_text = OriginText.new(origin_text_params)
+    render plain: FormatTextGenerator.new(origin_text).generate
   end
 
-  def result_text_params
-    params.require(:result_text).permit(:first_half, :second_half)
+  def origin_text_params
+    params.require(:origin_text).permit(:first_half, :second_half)
   end
 end
