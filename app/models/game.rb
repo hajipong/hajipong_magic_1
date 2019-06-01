@@ -8,6 +8,10 @@ class Game
     @point = game_text.sub(/○|×|△/, '')
     @player = player_text
   end
+
+  def is_empty?
+    @player == '不戦'
+  end
 end
 
 class EmptyGame < Game
@@ -15,5 +19,9 @@ class EmptyGame < Game
     @win_lose = ''
     @point = ''
     @player = ''
+  end
+
+  def is_empty?
+    true
   end
 end

@@ -16,7 +16,7 @@ class PlayerRecordsFormatter
       @name_length = [@name_length ||= 0, text_length(player_record.family_name) + text_length(player_record.first_name)].max
       @short_name_length = [@short_name_length ||= 0, text_length(player_record.short_name)].max
       @game_length = [@game_lengths ||= 0, get_max_game_length(player_record.games)].max
-      @game_count = [@game_count ||= 0, player_record.games.compact.length].max
+      @game_count = [@game_count ||= 0, player_record.games.length].max
     end
     @area_length = @name_length + PlayerRecordFormatter::SPACES[:family_name]
     @rank_length = @short_name_length
@@ -24,7 +24,7 @@ class PlayerRecordsFormatter
 
   # 対局記録の最大文字数を取り出す
   def get_max_game_length(games)
-    games.compact.map { |game| [text_length(game.win_lose + game.point), text_length(game.player)].max }.max
+    games.map { |game| [text_length(game.win_lose + game.point), text_length(game.player)].max }.max
   end
 
   # 選手記録をレーティング文字列変換

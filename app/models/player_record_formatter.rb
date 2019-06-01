@@ -29,12 +29,12 @@ class PlayerRecordFormatter
   end
 
   def games
-    texts = r.games.compact.map do |game|
+    texts = r.games.map do |game|
       game.win_lose + game.point +
           space(margin(game.win_lose + game.point, p.game_length))
     end
     # 対局してない分のスペース追加
-    (p.game_count - r.games.compact.length).times do
+    (p.game_count - r.games.length).times do
       texts.push(space(margin(EmptyGame.new.win_lose, p.game_length)))
     end
     texts.join(space(SPACES[:game])) + space(SPACES[:game])
@@ -53,11 +53,11 @@ class PlayerRecordFormatter
   end
 
   def players
-    texts = r.games.compact.map do |game|
+    texts = r.games.map do |game|
       game.player + space(margin(game.player, p.game_length))
     end
     # 対局してない分のスペース追加
-    (p.game_count - r.games.compact.length).times do
+    (p.game_count - r.games.length).times do
       texts.push(space(margin(EmptyGame.new.win_lose, p.game_length)))
     end
     texts.join(space(SPACES[:game])) + space(SPACES[:game])

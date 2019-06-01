@@ -56,7 +56,7 @@ class PlayerRecord
       else
         nil
       end
-    end
+    end.compact
     @after = over_line.map.with_index { |text, i| (i > over_index) ? text : nil}.compact.join(' ')
     @score = under_line.map.with_index { |text, i| (i > under_index) ? text : nil}.compact.join(' ')
   end

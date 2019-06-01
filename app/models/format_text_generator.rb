@@ -13,6 +13,7 @@ class FormatTextGenerator
       second_player_records = @origin_text.second_half_player_records.map { |player_record_arrays| PlayerRecord.new(player_record_arrays)}
       PlayerRecordMerger.merge(player_records, second_player_records)
     end
+    GameTimingGenerator.new(player_records).generate
     to_str(player_records)
   end
 
