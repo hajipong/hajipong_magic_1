@@ -11,6 +11,13 @@ class OriginText
     to_player_record(second_half)
   end
 
+  # エラー時用に区切り情報を返します。
+  def get_result
+    first_half.lines.map(&method(:to_line_array)).compact.map { |line| line.join(' | ')}.join('<br />') +
+        '<br />----------------<br />' +
+        second_half.lines.map(&method(:to_line_array)).compact.map { |line| line.join(' | ')}.join('<br />')
+  end
+
   private
 
   # 元のテキストを選手ごとのオブジェクト化

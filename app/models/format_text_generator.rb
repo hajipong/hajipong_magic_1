@@ -8,13 +8,20 @@ class FormatTextGenerator
 
   # 整形
   def generate
-    player_records = @origin_text.first_half_player_records.map { |player_record_arrays| PlayerRecord.new(player_record_arrays)}
-    if @origin_text.second_half
-      second_player_records = @origin_text.second_half_player_records.map { |player_record_arrays| PlayerRecord.new(player_record_arrays)}
-      PlayerRecordMerger.merge(player_records, second_player_records)
+    begin
+      player_records = @origin_text.first_half_player_records.map { |player_record_arrays| PlayerRecord.new(player_record_arrays)}
+      if @origin_text.second_half
+        second_player_records = @origin_text.second_half_player_records.map { |player_record_arrays| PlayerRecord.new(player_record_arrays)}
+        PlayerRecordMerger.merge(player_records, second_player_records)
+      end
+      GameTimingGenerator.new(player_records).generate
+      to_str(player_records)
+    rescue => error
+      '<pre style="font-family: monospace; font-size: large">' +
+          '変換できませんでした。データ区切りは以下の通り<br />' +
+          @origin_text.get_result +
+          '</pre>'
     end
-    GameTimingGenerator.new(player_records).generate
-    to_str(player_records)
   end
 
   # 選手データをレーティング用文字列に変換
