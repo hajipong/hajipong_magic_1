@@ -26,7 +26,7 @@ class OriginText
   # 1行のテキストをスペース区切りで切った配列化
   def to_line_array(line_text)
     line = line_text.split(' ')
-    line if line.length > 4     # 4区切り以下は対局データがないのでノイズと判断
+    line if line.length > 2     # 4区切り以下は対局データがないのでノイズと判断
   end
 
 end
