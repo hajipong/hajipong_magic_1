@@ -1,18 +1,22 @@
 # 元のテキストをデータ解析し、レーティング用出力をするクラス
 class ResultText
   include ActiveModel::Model
-  attr_accessor :original
+  attr_accessor :first_half, :second_half
 
   # 整形
   def format
-    player_records = to_player_record_arrays.map { |player_record_arrays| PlayerRecord.new(player_record_arrays)}
+    player_records = to_player_record_arrays(first_half).map { |player_record_arrays| PlayerRecord.new(player_record_arrays)}
+    if second_half
+      second_player_records = to_player_record_arrays(second_half).map { |player_record_arrays| PlayerRecord.new(player_record_arrays)}
+      PlayerRecordMerger.merge(player_records, second_player_records)
+    end
     to_str(player_records)
   end
 
   private
 
   # 元のテキストを選手ごとのオブジェクト化
-  def to_player_record_arrays
+  def to_player_record_arrays(original)
     original.lines               # 改行で区切って行ごとの配列化
         .map(&method(:to_line_array)) # 行をスペースで区切って配列化
         .compact                        # ノイズを除去

@@ -1,11 +1,19 @@
-<div style="padding: 50px;">
+<div style="margin: 50px;"  >
   <h1>HajipongMagic</h1>
   <hr />
 
   <div id="ajax_form">
     <%= form_with model: ResultText, url: convert_path, remote: true do |f| %>
-      <span>変換前の文字列を入力してください。</span><br />
-      <%= f.text_area :original, size: '100', style: 'height: 10em;' %><br />
+      <div class="row">
+        <div class="col-xl-6">
+          <span>予選</span><br />
+          <%= f.text_area :first_half, size: '100', style: 'height: 30em;' %><br />
+        </div>
+        <div class="col-xl-6">
+          <span>本選</span><br />
+          <%= f.text_area :second_half, size: '100', style: 'height: 30em;' %><br />
+        </div>
+      </div>
       <%= f.submit '変換' %>
       <h4>↓↓↓</h4>
       <div id="result_text"></div>

@@ -6,6 +6,6 @@ class TopController < ApplicationController
   end
 
   def result_text_params
-    params.require(:result_text).permit(:original)
+    params.require(:result_text).permit(:first_half, :second_half)
   end
 end

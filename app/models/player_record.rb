@@ -3,7 +3,7 @@ class PlayerRecord
   include ActiveModel::Model
   attr_accessor :num, :family_name, :first_name, :short_name, :games, :after, :area, :rank, :score
 
-  RANK_WORDS = %w(初段 二段 三段 四段 五段 六段 七段 八段 九段 1級 2級 3級 4級 5級 6級 7級 8級 9級).freeze
+  RANK_WORDS = %w(初段 二段 三段 四段 五段 六段 七段 八段 九段 １級 ２級 ３級 ４級 ５級 ６級 ７級 ８級 ９級).freeze
 
   AREAS = %w(北海道 青森 岩手 宮城 秋田 山形 福島 茨城 栃木 群馬 埼玉 千葉 東京 神奈川 新潟 富山 石川 福井
             山梨 長野 岐阜 静岡 愛知 三重 滋賀 京都 大阪 兵庫 奈良 和歌山 鳥取 島根 岡山 広島 山口 徳島
@@ -13,6 +13,10 @@ class PlayerRecord
   def initialize(player_record_arrays)
     @player_record_arrays = player_record_arrays
     generate
+  end
+
+  def same_player?(other_player_record)
+    family_name == other_player_record.family_name && first_name == other_player_record.first_name
   end
 
   private
