@@ -9,3 +9,11 @@ class Game
     @player = player_text
   end
 end
+
+class EmptyGame < Game
+  def initialize
+    @win_lose = ''
+    @point = ''
+    @player = ''
+  end
+end

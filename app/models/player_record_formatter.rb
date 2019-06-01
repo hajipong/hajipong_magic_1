@@ -35,7 +35,7 @@ class PlayerRecordFormatter
     end
     # 対局してない分のスペース追加
     (p.game_count - r.games.compact.length).times do
-      texts.push(space(margin('', p.game_length)))
+      texts.push(space(margin(EmptyGame.new.win_lose, p.game_length)))
     end
     texts.join(space(SPACES[:game])) + space(SPACES[:game])
   end
@@ -58,7 +58,7 @@ class PlayerRecordFormatter
     end
     # 対局してない分のスペース追加
     (p.game_count - r.games.compact.length).times do
-      texts.push(space(margin('', p.game_length)))
+      texts.push(space(margin(EmptyGame.new.win_lose, p.game_length)))
     end
     texts.join(space(SPACES[:game])) + space(SPACES[:game])
   end
